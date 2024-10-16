@@ -1,0 +1,24 @@
+{
+	"name": "RestResource_API",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AIRLINE_RESTAPI",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"url": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@dataset().url",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
