@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Ashu01"
+		},
+		"Airline_linked_service_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"covid19_01_connectionString": {
+			"value": ""
+		},
+		"covid19tg_connectionString": {
+			"value": ""
+		},
+		"AIRLINE_RESTAPI_properties_typeProperties_url": {
+			"value": "https://airlabs.co/api/v9/flights"
+		},
+		"Airline_linked_service_properties_typeProperties_url": {
+			"value": "https://airportdatalake01.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://covid01.dfs.core.windows.net/"
+		},
+		"HttpServer_ucdc_covid19_properties_typeProperties_url": {
+			"value": "@{linkedService().sourceBaseURL}"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
