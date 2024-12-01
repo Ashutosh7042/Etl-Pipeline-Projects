@@ -11,6 +11,9 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStorage2Taxi_accountKey": {
+			"value": ""
+		},
 		"covid19_01_connectionString": {
 			"value": ""
 		},
@@ -26,8 +29,14 @@
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://covid01.dfs.core.windows.net/"
 		},
+		"AzureDataLakeStorage2Taxi_properties_typeProperties_url": {
+			"value": "https://taxistores.dfs.core.windows.net/"
+		},
 		"HttpServer_ucdc_covid19_properties_typeProperties_url": {
 			"value": "@{linkedService().sourceBaseURL}"
+		},
+		"Taxi_Ansh_properties_typeProperties_url": {
+			"value": "https://d37ci6vzurychx.cloudfront.net/"
 		}
 	}
 }
