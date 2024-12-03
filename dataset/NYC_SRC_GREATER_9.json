@@ -1,0 +1,27 @@
+{
+	"name": "NYC_SRC_GREATER_9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Taxi_Ansh",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"P_MONTH_GREATER": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "trip-data/yellow_tripdata_2023-@{dataset().P_MONTH_GREATER}.parquet",
+					"type": "Expression"
+				}
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
