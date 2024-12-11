@@ -1,0 +1,7 @@
+{
+	"name": "integrationRuntimeSelf",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "On premises integration runtime."
+	}
+}
