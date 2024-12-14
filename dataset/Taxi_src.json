@@ -1,0 +1,19 @@
+{
+	"name": "Taxi_src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Taxi_Ansh",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "trip-data/yellow_tripdata_2023-01.parquet"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

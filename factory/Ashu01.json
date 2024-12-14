@@ -1,0 +1,9 @@
+{
+	"name": "Ashu01",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7618579c-a23f-4690-9cbc-43d1768b485f",
+		"tenantId": "6f68c3c9-9b9b-4d87-8064-08e6c95071c6"
+	}
+}

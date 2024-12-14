@@ -1,0 +1,21 @@
+{
+	"name": "on premservice",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "LAPTOP-92IOG7AS\\SQLEXPRESS",
+			"database": "master",
+			"encrypt": "optional",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "LAPTOP-92IOG7AS\\mishr",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3NDY0MmMwOS0yNmRiLTQyNGItODk4Ni0wYWI4ZThmZDRkMzEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntimeSelf",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
