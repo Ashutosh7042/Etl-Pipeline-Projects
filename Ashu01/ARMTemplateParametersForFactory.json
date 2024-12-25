@@ -20,6 +20,9 @@
 		"covid19tg_connectionString": {
 			"value": ""
 		},
+		"on premservice_password": {
+			"value": ""
+		},
 		"AIRLINE_RESTAPI_properties_typeProperties_url": {
 			"value": "https://airlabs.co/api/v9/flights"
 		},
@@ -37,6 +40,15 @@
 		},
 		"Taxi_Ansh_properties_typeProperties_url": {
 			"value": "https://d37ci6vzurychx.cloudfront.net/"
+		},
+		"on premservice_properties_typeProperties_server": {
+			"value": "LAPTOP-92IOG7AS\\SQLEXPRESS"
+		},
+		"on premservice_properties_typeProperties_database": {
+			"value": "master"
+		},
+		"on premservice_properties_typeProperties_userName": {
+			"value": "LAPTOP-92IOG7AS\\mishr"
 		}
 	}
 }

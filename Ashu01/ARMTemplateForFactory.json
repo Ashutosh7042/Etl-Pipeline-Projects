@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'covid19tg'"
 		},
+		"on premservice_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'on premservice'"
+		},
 		"AIRLINE_RESTAPI_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://airlabs.co/api/v9/flights"
@@ -50,6 +54,18 @@
 		"Taxi_Ansh_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://d37ci6vzurychx.cloudfront.net/"
+		},
+		"on premservice_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "LAPTOP-92IOG7AS\\SQLEXPRESS"
+		},
+		"on premservice_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "master"
+		},
+		"on premservice_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "LAPTOP-92IOG7AS\\mishr"
 		}
 	},
 	"variables": {
@@ -546,9 +562,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/NYC_SRC_GREATER_9')]",
+				"[concat(variables('factoryId'), '/datasets/Parquet_src')]",
 				"[concat(variables('factoryId'), '/datasets/Parquet_sink')]",
-				"[concat(variables('factoryId'), '/datasets/Parquet_src')]"
+				"[concat(variables('factoryId'), '/datasets/NYC_SRC_GREATER_9')]"
 			]
 		},
 		{
@@ -1039,6 +1055,172 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/NYC_SRC_GREATER_9')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Taxi_Ansh",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"P_MONTH_GREATER": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": {
+							"value": "trip-data/yellow_tripdata_2023-@{dataset().P_MONTH_GREATER}.parquet",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Taxi_Ansh')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet_sink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage2Taxi",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "taxi_2023-data",
+						"fileSystem": "bronze"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "VendorID",
+						"type": "INT64"
+					},
+					{
+						"name": "tpep_pickup_datetime",
+						"type": "TIMESTAMP_MICROS"
+					},
+					{
+						"name": "tpep_dropoff_datetime",
+						"type": "TIMESTAMP_MICROS"
+					},
+					{
+						"name": "passenger_count",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "trip_distance",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "RatecodeID",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "store_and_fwd_flag",
+						"type": "UTF8"
+					},
+					{
+						"name": "PULocationID",
+						"type": "INT64"
+					},
+					{
+						"name": "DOLocationID",
+						"type": "INT64"
+					},
+					{
+						"name": "payment_type",
+						"type": "INT64"
+					},
+					{
+						"name": "fare_amount",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "extra",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "mta_tax",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "tip_amount",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "tolls_amount",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "improvement_surcharge",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "total_amount",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "congestion_surcharge",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "airport_fee",
+						"type": "DOUBLE"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage2Taxi')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet_src')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Taxi_Ansh",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"P_month": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": {
+							"value": "trip-data/yellow_tripdata_2023-0@{dataset().P_month}.parquet",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Taxi_Ansh')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/RestResource_API')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1377,169 +1559,72 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Parquet_src')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/on premservice')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Taxi_Ansh",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"P_month": {
-						"type": "string"
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('on premservice_properties_typeProperties_server')]",
+					"database": "[parameters('on premservice_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('on premservice_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('on premservice_password')]"
 					}
 				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation",
-						"relativeUrl": {
-							"value": "trip-data/yellow_tripdata_2023-0@{dataset().P_month}.parquet",
-							"type": "Expression"
-						}
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
+				"connectVia": {
+					"referenceName": "integrationRuntimeSelf",
+					"type": "IntegrationRuntimeReference"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Taxi_Ansh')]"
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntimeSelf')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Parquet_sink')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/integrationRuntimeSelf')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage2Taxi",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "taxi_2023-data",
-						"fileSystem": "bronze"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "VendorID",
-						"type": "INT64"
-					},
-					{
-						"name": "tpep_pickup_datetime",
-						"type": "TIMESTAMP_MICROS"
-					},
-					{
-						"name": "tpep_dropoff_datetime",
-						"type": "TIMESTAMP_MICROS"
-					},
-					{
-						"name": "passenger_count",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "trip_distance",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "RatecodeID",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "store_and_fwd_flag",
-						"type": "UTF8"
-					},
-					{
-						"name": "PULocationID",
-						"type": "INT64"
-					},
-					{
-						"name": "DOLocationID",
-						"type": "INT64"
-					},
-					{
-						"name": "payment_type",
-						"type": "INT64"
-					},
-					{
-						"name": "fare_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "extra",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "mta_tax",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "tip_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "tolls_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "improvement_surcharge",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "total_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "congestion_surcharge",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "airport_fee",
-						"type": "DOUBLE"
-					}
-				]
+				"type": "SelfHosted",
+				"description": "On premises integration runtime.",
+				"typeProperties": {}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage2Taxi')]"
-			]
+			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/NYC_SRC_GREATER_9')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Taxi_Ansh",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"P_MONTH_GREATER": {
-						"type": "string"
-					}
-				},
 				"annotations": [],
-				"type": "Parquet",
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Taxi_API",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
 				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation",
-						"relativeUrl": {
-							"value": "trip-data/yellow_tripdata_2023-@{dataset().P_MONTH_GREATER}.parquet",
-							"type": "Expression"
-						}
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 2,
+						"startTime": "2024-12-25T12:03:00",
+						"timeZone": "India Standard Time"
+					}
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Taxi_Ansh')]"
+				"[concat(variables('factoryId'), '/pipelines/Taxi_API')]"
 			]
 		}
 	]
