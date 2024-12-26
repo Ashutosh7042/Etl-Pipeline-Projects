@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
 		"AzureDataLakeStorage2Taxi_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2Taxi'"
@@ -31,10 +35,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'on premservice'"
 		},
-		"AzureDataLakeStorage2_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
-		},
 		"AIRLINE_RESTAPI_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://airlabs.co/api/v9/flights"
@@ -46,6 +46,10 @@
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://covid01.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://airportdatalake01.dfs.core.windows.net/"
 		},
 		"AzureDataLakeStorage2Taxi_properties_typeProperties_url": {
 			"type": "string",
@@ -70,10 +74,6 @@
 		"on premservice_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "LAPTOP-92IOG7AS\\mishr"
-		},
-		"AzureDataLakeStorage2_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://airportdatalake01.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -108,6 +108,9 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"AzureDataLakeStorage2_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					},
 					"AzureDataLakeStorage2Taxi_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage2Taxi_accountKey')]"
 					},
@@ -116,9 +119,6 @@
 					},
 					"covid19tg_connectionString": {
 						"value": "[parameters('covid19tg_connectionString')]"
-					},
-					"AzureDataLakeStorage2_accountKey": {
-						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
 					},
 					"AIRLINE_RESTAPI_properties_typeProperties_url": {
 						"value": "[parameters('AIRLINE_RESTAPI_properties_typeProperties_url')]"
@@ -129,6 +129,9 @@
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
+					"AzureDataLakeStorage2_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
+					},
 					"AzureDataLakeStorage2Taxi_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage2Taxi_properties_typeProperties_url')]"
 					},
@@ -137,9 +140,6 @@
 					},
 					"Taxi_Ansh_properties_typeProperties_url": {
 						"value": "[parameters('Taxi_Ansh_properties_typeProperties_url')]"
-					},
-					"AzureDataLakeStorage2_properties_typeProperties_url": {
-						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
 					}
 				}
 			},
